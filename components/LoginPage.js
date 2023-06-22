@@ -22,14 +22,16 @@ const LoginPage = () => {
     setLoginDetails({ ...loginDetails, [name]: value })
   }
 
-  const handleSubmit =async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!loginDetails.email || !loginDetails.password) {
       setError('Email and password are Required.')
     } else {
       try {
-        const res = await signInWithEmailAndPassword(auth, loginDetails.email , loginDetails.password)
-        router.push('/')
+        const res = await signInWithEmailAndPassword(auth, loginDetails.email, loginDetails.password)
+        if (res) {
+          router.push('/')
+        }
       } catch (error) {
         setError("Email or password is not valid")
       }
