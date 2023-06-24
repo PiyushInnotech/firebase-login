@@ -9,14 +9,16 @@ import { useEffect, useState } from "react";
 const HomeView = () => {
     const [user, setUser] = useState(null)
     const router = useRouter()
-    const unSub = onAuthStateChanged(auth, (user) => {
-        if (user) {
-            setUser(user);
-        } else {
-            router.push('/login')
-            setUser(null);
-        }
-    })
+    const unSub = () => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                setUser(user);
+            } else {
+                setUser(null);
+                router.push('/login')
+            }
+        })
+    }
 
     const handleLogout = async (e) => {
         await signOut(auth)
